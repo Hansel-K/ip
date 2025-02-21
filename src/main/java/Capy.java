@@ -19,6 +19,10 @@ public class Capy {
 
             userInput = inputObj.nextLine(); // Read user input
 
+            // user inputs to handle:
+            // "bye", "list", "mark", "unmark"
+            // "todo", "deadline", "event"
+
             if (userInput.equals("bye")) {
                 System.out.println("____________________________________________________________");
                 System.out.println("Bye. Hope to see you again soon!");
@@ -57,6 +61,38 @@ public class Capy {
                 } else {
                     System.out.println("Invalid task number.");
                 }
+            } else if (userInput.startsWith("todo")) {
+                    String description = userInput.substring(5); // beginindex determined by length of command
+                    tasks[counter] = new ToDo(description);
+                    counter++;
+                    System.out.println("____________________________________________________________");
+                    System.out.println("Got it. I've added this task:");
+                    System.out.println(" " + tasks[counter - 1]);
+                    System.out.println("Now you have " + counter + " tasks in the list.");
+                    System.out.println("____________________________________________________________");
+            } else if (userInput.startsWith("deadline")) {
+                String[] parts = userInput.split(" /by ");
+                String description = parts[0].substring(9); // beginindex determined by length of command
+                String dueDate = parts[1];
+                tasks[counter] = new Deadline(description, dueDate);
+                counter++;
+                System.out.println("____________________________________________________________");
+                System.out.println("Got it. I've added this task:");
+                System.out.println(" " + tasks[counter - 1]);
+                System.out.println("Now you have " + counter + " tasks in the list.");
+                System.out.println("____________________________________________________________");
+            } else if (userInput.startsWith("event")) {
+                String[] parts = userInput.split(" /from | /to ");
+                String description = parts[0].substring(6); // beginindex determined by length of command
+                String start = parts[1];
+                String end = parts[2];
+                tasks[counter] = new Event(description, start, end);
+                counter++;
+                System.out.println("____________________________________________________________");
+                System.out.println("Got it. I've added this task:");
+                System.out.println(" " + tasks[counter - 1]);
+                System.out.println("Now you have " + counter + " tasks in the list.");
+                System.out.println("____________________________________________________________");
             } else {
                 // Add user input to string array
                 tasks[counter] = new Task(userInput);
@@ -67,6 +103,7 @@ public class Capy {
                 System.out.println("added: " + userInput);
                 System.out.println("____________________________________________________________");
             }
+
         }
     }
 }
