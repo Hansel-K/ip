@@ -1,3 +1,5 @@
+package capy;
+
 public class Deadline extends Task {
     protected String dueDate;
 

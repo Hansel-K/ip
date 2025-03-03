@@ -1,3 +1,5 @@
+package capy;
+
 import javax.swing.*;
 import java.util.Scanner; // Import Scanner class to enable reading of inputs
 
