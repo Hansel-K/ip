@@ -20,7 +20,7 @@ public class Capy {
         while (true) {
             userInput = inputObj.nextLine().trim(); // Read user input
             // User inputs to handle:
-            // "bye", "list", "mark", "unmark"
+            // "bye", "list", "mark", "unmark", "delete"
             // "todo", "deadline", "event"
             try {
                 if (userInput.equals("bye")) {
@@ -44,7 +44,7 @@ public class Capy {
                         if (parts.length < 2) {
                             throw new CapyException("Oops! Seems like the command is missing a task number!");
                         } else if (parts.length > 2) {
-                            throw new CapyException("Oops! Seems like the command has included extra details!");
+                            throw new CapyException("Oops! Seems like the command has included extrat details!");
                         }
                         int taskNumber = Integer.parseInt(parts[1]) - 1;
                         if (taskNumber >= 0 && taskNumber < taskCounter) {
@@ -77,6 +77,37 @@ public class Capy {
                             System.out.println("Ok, I've marked this task as not done yet: ");
                             System.out.println(tasks[taskNumber]);
                             System.out.println("____________________________________________________________");
+                        }
+                    } catch (NumberFormatException e) {
+                        System.out.println("Oops! Please enter a valid integer as a task number!");
+                    } catch (IndexOutOfBoundsException e) {
+                        System.out.println("Oops! Index is out of bounds. Please enter an index within bounds!");
+                    }
+                } else if (userInput.startsWith("delete")) {
+                    // Input command "delete taskNumber"
+                    try {
+                        String[] parts = userInput.split(" ");
+                        if (parts.length < 2) {
+                            throw new CapyException("Oops! Seems like the command is missing a task number!");
+                        } else if (parts.length > 2) {
+                            throw new CapyException("Oops! Seems like the command has included extra details!");
+                        }
+                        int taskNumber = Integer.parseInt(parts[1]) - 1;
+                        if (taskNumber >= 0 && taskNumber < taskCounter) {
+                            Task removedTask = tasks[taskNumber];
+                            // Adjust numbers of remaining tasks to compensate for removed task
+                            for (int i = taskNumber; i < taskCounter - 1; i++) {
+                                tasks[i] = tasks[i + 1];
+                            }
+                            tasks[taskCounter - 1] = null;
+                            taskCounter--;
+                            System.out.println("____________________________________________________________");
+                            System.out.println("Noted. I've removed this task:");
+                            System.out.println(" " + removedTask);
+                            System.out.println("Now you have " + taskCounter + " tasks in the list.");
+                            System.out.println("____________________________________________________________");
+                        } else {
+                            System.out.println("Oops! Invalid task number!");
                         }
                     } catch (NumberFormatException e) {
                         System.out.println("Oops! Please enter a valid integer as a task number!");
@@ -118,13 +149,13 @@ public class Capy {
                     // Input command "event description /from start /to end"
                     String[] parts = userInput.split("/from|/to");
                     if (parts.length < 3) {
-                        throw new CapyException("Oops! Seems like the command is missing some details!");
+                        throw new capy.CapyException("Oops! Seems like the command is missing some details!");
                     }
                     String description = parts[0].substring(5).trim(); // Filter out "event"
                     String start = parts[1].trim();
                     String end = parts[2].trim();
                     if (description.isEmpty()) {
-                        throw new CapyException("Oops! Seems like the command is missing a description!");
+                        throw new capy.CapyException("Oops! Seems like the command is missing a description!");
                     } else if (start.isEmpty()) {
                         throw new CapyException("Oops! Seems like the command is missing a start date/time!");
                     }
