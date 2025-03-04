@@ -1,6 +1,7 @@
 package capy;
 
 import javax.swing.*;
+import java.util.ArrayList;
 import java.util.Scanner; // Import Scanner class to enable reading of inputs
 
 public class Capy {
@@ -13,8 +14,7 @@ public class Capy {
         Scanner inputObj = new Scanner(System.in); // Create Scanner object
         String userInput; // Declare string to hold user input
 
-        Task[] tasks = new Task[100]; // Declare array of Task objects
-        int taskCounter = 0; // Declare int to track how many strings have been added
+        ArrayList<Task> tasks = new ArrayList<>(); // Use ArrayList instead of Array to store objects
 
         // Read input until "bye" is received
         while (true) {
@@ -32,9 +32,9 @@ public class Capy {
                     // Print stored tasks as a list
                     System.out.println("____________________________________________________________");
                     System.out.println("Here are the tasks in your list:");
-                    for (int i = 0; i < taskCounter; i++) {
+                    for (int i = 0; i < tasks.size(); i++) {
                         // Iterate through task array to print stored tasks
-                        System.out.println(i + 1 + ". " + tasks[i]);
+                        System.out.println(i + 1 + ". " + tasks.get(i));
                     }
                     System.out.println("____________________________________________________________");
                 } else if (userInput.startsWith("mark")) {
@@ -47,11 +47,11 @@ public class Capy {
                             throw new CapyException("Oops! Seems like the command has included extrat details!");
                         }
                         int taskNumber = Integer.parseInt(parts[1]) - 1;
-                        if (taskNumber >= 0 && taskNumber < taskCounter) {
-                            tasks[taskNumber].markDone();
+                        if (taskNumber >= 0 && taskNumber < tasks.size()) {
+                            tasks.get(taskNumber).markDone();
                             System.out.println("____________________________________________________________");
                             System.out.println("Nice! I've marked this task as done: ");
-                            System.out.println(tasks[taskNumber]);
+                            System.out.println(tasks.get(taskNumber));
                             System.out.println("____________________________________________________________");
                         } else {
                             System.out.println("Oops! Invalid task number!");
@@ -71,11 +71,11 @@ public class Capy {
                             throw new CapyException("Oops! Seems like the command has included extra details!");
                         }
                         int taskNumber = Integer.parseInt(parts[1]) - 1;
-                        if (taskNumber >= 0 && taskNumber < taskCounter) {
-                            tasks[taskNumber].unmarkDone();
+                        if (taskNumber >= 0 && taskNumber < tasks.size()) {
+                            tasks.get(taskNumber).unmarkDone();
                             System.out.println("____________________________________________________________");
                             System.out.println("Ok, I've marked this task as not done yet: ");
-                            System.out.println(tasks[taskNumber]);
+                            System.out.println(tasks.get(taskNumber));
                             System.out.println("____________________________________________________________");
                         }
                     } catch (NumberFormatException e) {
@@ -93,18 +93,12 @@ public class Capy {
                             throw new CapyException("Oops! Seems like the command has included extra details!");
                         }
                         int taskNumber = Integer.parseInt(parts[1]) - 1;
-                        if (taskNumber >= 0 && taskNumber < taskCounter) {
-                            Task removedTask = tasks[taskNumber];
-                            // Adjust numbers of remaining tasks to compensate for removed task
-                            for (int i = taskNumber; i < taskCounter - 1; i++) {
-                                tasks[i] = tasks[i + 1];
-                            }
-                            tasks[taskCounter - 1] = null;
-                            taskCounter--;
+                        if (taskNumber >= 0 && taskNumber < tasks.size()) {
+                            Task removedTask = tasks.remove(taskNumber); // ArrayList helps shift taskNumber
                             System.out.println("____________________________________________________________");
                             System.out.println("Noted. I've removed this task:");
                             System.out.println(" " + removedTask);
-                            System.out.println("Now you have " + taskCounter + " tasks in the list.");
+                            System.out.println("Now you have " + tasks.size() + " tasks in the list.");
                             System.out.println("____________________________________________________________");
                         } else {
                             System.out.println("Oops! Invalid task number!");
@@ -120,12 +114,11 @@ public class Capy {
                     if (description.trim().isEmpty()) {
                         throw new CapyException("Oops! Seems like the command is missing a description!");
                     }
-                    tasks[taskCounter] = new ToDo(description);
-                    taskCounter++;
+                    tasks.add(new ToDo(description));
                     System.out.println("____________________________________________________________");
                     System.out.println("Got it. I've added this task:");
-                    System.out.println(" " + tasks[taskCounter - 1]);
-                    System.out.println("Now you have " + taskCounter + " tasks in the list.");
+                    System.out.println(" " + tasks.get(tasks.size() - 1));
+                    System.out.println("Now you have " + tasks.size() + " tasks in the list.");
                     System.out.println("____________________________________________________________");
                 } else if (userInput.startsWith("deadline")) {
                     // Input command "deadline description /by dueDate"
@@ -138,12 +131,11 @@ public class Capy {
                     if (description.isEmpty()) {
                         throw new CapyException("Oops! Seems like the command is missing a description!");
                     }
-                    tasks[taskCounter] = new Deadline(description, dueDate);
-                    taskCounter++;
+                    tasks.add(new Deadline(description, dueDate));
                     System.out.println("____________________________________________________________");
                     System.out.println("Got it. I've added this task:");
-                    System.out.println(" " + tasks[taskCounter - 1]);
-                    System.out.println("Now you have " + taskCounter + " tasks in the list.");
+                    System.out.println(" " + tasks.get(tasks.size() - 1));
+                    System.out.println("Now you have " + tasks.size() + " tasks in the list.");
                     System.out.println("____________________________________________________________");
                 } else if (userInput.startsWith("event")) {
                     // Input command "event description /from start /to end"
@@ -159,12 +151,11 @@ public class Capy {
                     } else if (start.isEmpty()) {
                         throw new CapyException("Oops! Seems like the command is missing a start date/time!");
                     }
-                    tasks[taskCounter] = new Event(description, start, end);
-                    taskCounter++;
+                    tasks.add(new Event(description, start, end));
                     System.out.println("____________________________________________________________");
                     System.out.println("Got it. I've added this task:");
-                    System.out.println(" " + tasks[taskCounter - 1]);
-                    System.out.println("Now you have " + taskCounter + " tasks in the list.");
+                    System.out.println(" " + tasks.get(tasks.size() - 1));
+                    System.out.println("Now you have " + tasks.size() + " tasks in the list.");
                     System.out.println("____________________________________________________________");
                 } else {
                     throw new CapyException("Oops! Command not recognised! Please try a valid command!");
