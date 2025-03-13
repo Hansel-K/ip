@@ -6,11 +6,20 @@ import capy.storage.Storage;
 import capy.tasklist.TaskList;
 import capy.ui.Ui;
 
+/**
+ * The main class of the application that initializes the components,
+ * processes user input, and executes commands to manage a task list
+ */
 public class Capy {
     private Ui ui;
     private Storage storage;
     private TaskList tasks;
 
+    /**
+     * Constructs the Capy application by initializing the UI, storage, and task list
+     *
+     * @param filePath the file path where tasks will be loaded from and saved to
+     */
     public Capy(String filePath) {
         ui = new Ui();
         storage = new Storage(filePath);
@@ -22,6 +31,11 @@ public class Capy {
         }
     }
 
+    /**
+     * Runs the main application loop, handling user commands until the exit command is issued
+     * The loop reads user input, parses it into commands, executes the commands, and
+     * displays appropriate output or error messages
+     */
     public void run() {
         ui.showWelcome();
         boolean isExit = false;
@@ -41,6 +55,11 @@ public class Capy {
         }
     }
 
+    /**
+     * The main entry point of the application
+     *
+     * @param args Command-line arguments
+     */
     public static void main(String[] args) {
         new Capy("./data/capy.txt").run(); // Run the application with the specified data file path
     }
