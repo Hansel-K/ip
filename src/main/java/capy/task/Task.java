@@ -1,4 +1,4 @@
-package capy;
+package capy.task;
 
 public abstract class Task {
     protected String description;

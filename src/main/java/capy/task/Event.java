@@ -1,4 +1,4 @@
-package capy;
+package capy.task;
 
 public class Event extends Task {
     protected String start;
