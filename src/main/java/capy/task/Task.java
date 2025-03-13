@@ -46,6 +46,11 @@ public abstract class Task {
      *
      * @return a string in the format "[status] description"
      */
+  
+    public String getDescription() {
+        return this.description; // Return the description of the task
+    }
+
     @Override
     public String toString() {
         return "[" + getStatusIcon() + "] " + description;
