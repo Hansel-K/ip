@@ -21,6 +21,8 @@ public class Parser {
             return new AddCommand(fullCommand);
         } else if (fullCommand.startsWith("delete")) {
             return new DeleteCommand(fullCommand);
+        } else if (fullCommand.startsWith("find")) {
+            return new FindCommand(fullCommand);
         } else {
             throw new CapyException(Ui.INVALID_COMMAND);
         }

@@ -21,6 +21,10 @@ public abstract class Task {
         this.isDone = false;
     }
 
+    public String getDescription() {
+        return this.description; // Return the description of the task
+    }
+
     @Override
     public String toString() {
         return "[" + getStatusIcon() + "] " + description;
