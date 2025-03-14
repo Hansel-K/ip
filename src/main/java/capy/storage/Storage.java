@@ -12,29 +12,52 @@ import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.ArrayList;
 
-// Manages loading and saving tasks to the file
+/**
+ * Manages the loading and saving of tasks to a persistent file storage
+ * Handles the creation of directories and files as needed, and ensures tasks are
+ * properly saved and loaded in a specified format
+ */
 public class Storage {
     private String filePath;
 
+    /**
+     * Constructs a Storage object for managing the given file path
+     *
+     * @param filePath the path to the file where tasks will be saved and loaded from
+     */
     public Storage(String filePath) {
         this.filePath = filePath;
     }
 
+    /**
+     * Loads tasks from the file specified in the file path
+     *
+     * @return an ArrayList of tasks loaded from the file
+     * @throws CapyException if the file contains corrupted data or cannot be accessed
+     */
     public ArrayList<Task> loadTasks() throws CapyException {
         ArrayList<Task> tasks = new ArrayList<>();
         try {
+            // Ensure the directory exists
             Files.createDirectories(Paths.get("./data"));
             File file = new File(filePath);
+
+            // Read tasks if the file exists
             if (file.exists()) {
                 BufferedReader reader = new BufferedReader(new FileReader(file));
                 String line;
                 while ((line = reader.readLine()) != null) {
                     String[] parts = line.split("\\|");
+
+                    // Check for corrupted file format
                     if (parts.length < 3) {
                         throw new CapyException(Ui.CORRUPTED_FILE);
                     }
+
                     String type = parts[0].trim();
                     boolean isDone = parts[1].trim().equals("1");
+
+                    // Parse tasks based on their type
                     switch (type) {
                         case "T":
                             tasks.add(new ToDo(parts[2].trim(), isDone));
@@ -57,6 +80,12 @@ public class Storage {
         return tasks;
     }
 
+    /**
+     * Saves the tasks to the file specified in the file path
+     *
+     * @param tasks the list of tasks to be saved to the file
+     * @throws CapyException if an I/O error occurs while saving the tasks
+     */
     public void saveTasks(ArrayList<Task> tasks) throws CapyException {
         try (BufferedWriter writer = new BufferedWriter(new FileWriter(filePath))) {
             for (Task task : tasks) {
