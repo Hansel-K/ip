@@ -1,6 +1,6 @@
 # Capy Task Manager User Guide
 
-![Product Screenshot](path/to/screenshot.png)  
+![Product Screenshot](data/CapyScreenshot.png)  
 *Insert a product screenshot here.*
 
 ## Description
@@ -14,7 +14,7 @@ ToDos, Deadlines, and Events. It also supports persistent storage, so your tasks
 
 1. **Install Java**: Ensure you have Java 17 or above installed on your computer.
 2. **Download the Application**: Download the latest `.jar` file from [here](#). *(Provide the actual link.)*
-3. **Set Up**: Copy the `.jar` file to the folder you want to use as the home folder for Bebe Task Manager.
+3. **Set Up**: Copy the `.jar` file to the folder you want to use as the home folder for Capy Task Manager.
 4. **Run the Application**:
     - Open a command terminal.
     - Navigate (`cd`) into the folder where you placed the `.jar` file.
