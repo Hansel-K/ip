@@ -1,6 +1,6 @@
 # Capy Task Manager User Guide
 
-![Product Screenshot](docs/CapyScreenshot.png)  
+![Product Screenshot](CapyScreenshot.png)  
 *Insert a product screenshot here.*
 
 ## Description
