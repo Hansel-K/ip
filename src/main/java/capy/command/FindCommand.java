@@ -23,7 +23,6 @@ public class FindCommand extends Command {
 
     @Override
     public void execute(TaskList tasks, Ui ui, Storage storage) throws CapyException {
-        ui.showLine();
         System.out.println("Here are the matching tasks in your list:");
 
         int matchCounter = 1; // Counter for matching tasks
@@ -41,7 +40,6 @@ public class FindCommand extends Command {
         if (!found) {
             System.out.println("No tasks found matching the keyword: " + keyword);
         }
-        ui.showLine();
     }
 
     @Override
