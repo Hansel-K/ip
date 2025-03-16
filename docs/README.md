@@ -1,7 +1,6 @@
 # Capy Task Manager User Guide
 
-![Product Screenshot](CapyScreenshot.png)  
-*Insert a product screenshot here.*
+![Product Screenshot](CapyScreenshot.png)
 
 ## Description
 Capy is a simple yet powerful task management application designed to help users organize and track their tasks 
@@ -13,7 +12,7 @@ ToDos, Deadlines, and Events. It also supports persistent storage, so your tasks
 ## Quick Start
 
 1. **Install Java**: Ensure you have Java 17 or above installed on your computer.
-2. **Download the Application**: Download the latest `.jar` file from [here](#). *(Provide the actual link.)*
+2. **Download the Application**: Download the latest `.jar` file from [here](https://github.com/Hansel-K/ip/releases/tag/A-Release).
 3. **Set Up**: Copy the `.jar` file to the folder you want to use as the home folder for Capy Task Manager.
 4. **Run the Application**:
     - Open a command terminal.
